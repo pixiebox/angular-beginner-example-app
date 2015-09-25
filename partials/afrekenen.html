@@ -1,0 +1,100 @@
+<div class="block">
+	<div class="stap1">
+		<form action="" method="post" class="afrekenenForm clearfix" ng-submit="frmSubmit()">
+			<fieldset class="required">
+				<legend>Afleveradres</legend>
+				<div ng-repeat="adres in adressen">
+					<label class="radio-item">
+						<input ng-if="$index == 0" name="afleveradres" type="radio" value="{{ $index }}" checked="checked">
+						<input ng-if="$index > 0" name="afleveradres" type="radio" value="{{ $index }}">
+						<span class="afleveradres">
+							{{ adres.naam }}
+							<br />
+							{{ adres.adres }}
+							<br />
+							{{ adres.pcwp }}
+						</span>
+					</label>
+				</div>
+				<label class="radio-item">
+					<input name="afleveradres" type="radio" value="toevoegen" el-toggler=".toevoegenAdres">
+					Afleveradres toevoegen
+				</label>
+				<div class="toevoegenAdres">
+					<label class="required aanhef">
+						<span>Aanhef</span>
+						<select name="aanhef" class="form-control" data-valid="notempty">
+							<option value="Dhr.">Dhr.</option>
+							<option value="Mevr.">Mevr.</option>
+						</select>
+					</label>
+					<label class="required voornaam">
+						<span>Voornaam</span>
+						<input name="voornaam" class="form-control" data-valid="notempty" maxlength="80" size="40" type="text" value="">
+					</label>
+					<label class="required achternaam">
+						<span>Achternaam</span>
+						<input name="achternaam" class="form-control" data-valid="notempty" data-validate="off" maxlength="80" size="40" type="text" value="">
+					</label>
+					<label class="required straat">
+						<span>Straat</span>
+						<input name="straat" class="form-control" data-valid="notempty" data-validate="off" maxlength="80" size="40" type="text" value="">
+					</label>
+					<label class="required huisnummer">
+						<span>Nr</span>
+						<input name="huisnummer" class="form-control" data-valid="alnum" data-validate="off" maxlength="4" size="4" type="text" value="">
+					</label>
+					<label class="toevoeging">
+						<span>Toevoeging</span>
+						<input name="toevoeging" class="form-control" maxlength="4" size="4" type="text" value="">
+					</label>
+					<label class="required postcode">
+						<span>Postcode</span>
+						<input name="postcode" class="form-control" data-valid="postalcode" data-validate="off" maxlength="6" size="6" type="text" value="">
+					</label>
+					<label class="required woonplaats"><span>Woonplaats</span>
+						<input name="woonplaats" class="form-control" data-valid="notempty" data-validate="off" maxlength="80" size="40" type="text" value="">
+					</label>
+				</div>
+			</fieldset>
+
+			<fieldset class="required">
+				<legend>Verzendwijze</legend>
+				<label class="radio-item">
+					<input checked="checked" data-valid="notempty" ng-model="shipping" ng-true-value="standaard" id="standaard" name="verzendwijze" type="radio" value="standaard" data-price="9">standaard 9.00
+				</label>
+				<label class="radio-item">
+					<input data-valid="notempty" ng-model="shipping" ng-true-value="verzekerd" id="verzekerd" name="verzendwijze" type="radio" value="verzekerd" data-price="19">verzekerd 19.00
+				</label>
+			</fieldset>
+
+			<fieldset class="required">
+				<legend>Betaalwijze</legend>
+				<select name="betaalwijze" class="form-control" required="required" ng-model="paymentmethod" ng-change="payment()">
+					<option value="">Kies uw betaalwijze</option>
+					<option value="ideal">Ideal</option>
+					<option value="overschrijving">Per overschrijving</option>
+					<option value="paypal">Paypal</option>
+				</select>
+			</fieldset>
+
+			<div id="subTotaal">
+				Subtotaal
+				<span id="subTotaalBedrag">{{ subTotal().toFixed(2) }}</span>
+			</div>
+
+			<div id="totaal">
+				<strong>
+					Totaal <span id="totaalBedrag">{{ total.toFixed(2) }}</span>
+				</strong>
+			</div>
+
+			<!--input name="submit" class="btn btn-primary btn-huge" type="submit" value="Betalen"-->
+		</form>
+	</div>
+
+	<div class="stap2">
+		<strong class="head">{{ paymentmethod }}</strong>
+		<div id="betaalFrm"></div>
+	</div>
+</div>

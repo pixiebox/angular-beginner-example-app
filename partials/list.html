@@ -1,0 +1,73 @@
+<div class="cart-widget" ng-include src="cartWidgetPath"></div>
+
+<div class="filterContainer">
+	<div ng-include src="filterPath"></div>
+</div>
+
+<div id="article-list" class="articles clearfix container">
+	<div class="block clearfix">
+		<div class="item" data-item='{"id" : {{ item.id }}, "price" : "{{ item.price }}", "category" : "{{ item.category }}", "title" : "{{ item.title }}", "images" : ["{{ item.images[0] }}"] }' ng-repeat="item in itemsfiltered = (list_items | filter: filterText | filter:queryFilter | offset:getOffset()*itemsPerPage) | limitTo:limit" my-repeat-directive><!--  | orderBy:orderProp -->
+			<article class="item-wrap">
+				<header class="header">
+					<h2 itemprop="headline">
+						<a href="#!/detail/{{ item.id }}">
+							{{ item.title }}
+						</a>
+					</h2>
+					<h3 itemprop="category">{{ item.category }}</h3>
+				</header>
+
+				<div class="article-attributes" ng-if="item.attributes.length">
+					<span class="badge" ng-repeat="attribute in item.attributes">
+						<span ng-if="attribute.snippet" itemprop="{{ attribute.snippet }}">{{ attribute.name }}</span>
+						<span ng-if="!attribute.snippet">{{ attribute.name }}</span>
+					</span>
+				</div>
+
+				<div class="article-image">
+					<img ng-src="/assets/content/shop/images/250/{{ item.images[0] }}" />
+				</div>
+
+				<p itemprop="description" compile-html="item.descr">
+				</p>
+
+				<div ng-if="item.qty == 0" class="outofstock" itemprop="availability">Out of stock</div>
+				<footer class="article-action clearfix footer" data-id="{{ item.id }}" ng-if="item.qty > 0">
+					<span class="price">
+						price: <meta itemprop="currency" content="EUR" />&euro; <em itemprop="price">{{ item.price }}</em>
+					</span>
+					<span class="qty-fieldset">
+						<span class="qty">
+							Qty:
+							<input class="inp-qty form-control" type="number" min="1" max="{{ item.qty }}" value="1" />
+						</span>
+					</span>
+
+					<div class="btn-group clearfix">
+						<button class="btn btn-primary add-to-cart" title="cart" ng-click="cart($index);">
+							<i class="glyphicon glyphicon-shopping-cart"></i>
+						</button>
+					</div>
+				</footer>
+			</article>
+		</div>
+
+	</div>
+
+	<ul ng-if="range().length > 1" class="pagination">
+		<li ng-class="prevPageDisabled()">
+			<a  aria-label="Previous" href="#!/list/{{ currentPage - 1 }}" ng-click="prevPage()">
+				<span aria-hidden="true">&laquo;</span>
+			</a>
+		</li>
+		<li ng-repeat="n in range()" ng-class="{active: n == currentPage}">
+			<a class="page" href="#!/{{ n }}" ng-click="setPage(n)">{{n}}</a>
+		</li>
+		<li ng-class="nextPageDisabled()" >
+			<a aria-label="Next" href="#!/list/{{ currentPage + 1 }}" ng-click="nextPage()">
+				<span aria-hidden="true">&raquo;</span>
+			</a>
+		</li>
+	</ul>
+
+</div>

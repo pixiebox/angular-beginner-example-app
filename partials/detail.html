@@ -1,0 +1,53 @@
+<article class="clearfix item item-detail container" itemscope itemtype="http://schema.org/Product">
+	<header>
+		<h2 class="fn" itemprop="name">{{ item.title }}</h2>
+		<h3 itemprop="category">{{ item.category }}</h3>
+	</header>
+
+	<div class="article-image">
+		<img ng-if="item.images.length" ng-src="/assets/content/shop/images/250/{{ item.images[0] }}" />
+		<img ng-if="!item.images.length" ng-src="/assets/content/shop/images/250/no-image.png" />
+	</div>
+
+	<div class="article-info" ng-if="item.attributes.length">
+		<div class="article-attributes" ng-if="item.attributes.length">
+			<span class="badge" ng-repeat="attribute in item.attributes">
+				<span ng-if="attribute.snippet" itemprop="{{ attribute.snippet }}">{{ attribute.name }}</span>
+				<span ng-if="!attribute.snippet">{{ attribute.name }}</span>
+			</span>
+		</div>
+
+		<div class="hreview-aggregate">
+			<span class="head count">{{ item.reviews }} reviews</span>
+			<div class="stars">
+				<div class="rating" style="width:{{item.rating * 20}}%"></div>
+				<input type="radio" name="rating" id="star5" value="5" ng-model="review" ng-change="sendReview(review)">
+				<label for="star5"></label>
+				<input type="radio" name="rating" id="star4" value="4" ng-model="review" ng-change="sendReview(review)">
+				<label for="star4"></label>
+				<input type="radio" name="rating" id="star3" value="3" ng-model="review" ng-change="sendReview(review)">
+				<label for="star3"></label>
+				<input type="radio" name="rating" id="star2" value="2" ng-model="review" ng-change="sendReview(review)">
+				<label for="star2"></label>
+				<input type="radio" name="rating" id="star1" value="1" ng-model="review" ng-change="sendReview(review)">
+				<label for="star1"></label>
+			</div>
+			<div class="reviewerRating">
+				<span class="rating">{{ item.rating }}</span> from <span class="best">5</span> based on <span class="votes">{{ item.reviews }}</span> reviews.
+			</div>
+		</div>
+
+		<p class="article-descr" itemprop="description" compile-html="item.descr"></p>
+
+		<div class="article-action">
+			<label ng-if="item.qty == 0" class="outofstock">Out of stock</label>
+
+			<span class="qty-fieldset">
+				<span class="qty" ng-if="item.qty > 0">
+					Qty:
+					<input class="inp-qty form-control" type="number" min="1" max="{{ item.qty }}" value="1" />
+				</span>
+			</span>
+		</div>
+	</div>
+</article>

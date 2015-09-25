@@ -1,0 +1,25 @@
+[{  
+	"attributes":[  
+		{  
+			"name"		: "manufacturer",
+			"snippet"	: "manufacturer"
+		},
+		{  
+			"name"		: "year",
+			"snippet"	: null
+		},
+		{  
+			"name"		: "brand",
+			"snippet"	: null
+		}
+	],
+	"category"	: "Diecast",
+	"descr"			: "Ford Model Cars 454 Shelby Collectibles 2013 Ford Mustang Boss 302 Red Black",
+	"id"				: 1415890020,
+	"images"		: ["1415896375.jpg"],
+	"price"			: "99.00",
+	"qty"				: 1,
+	"stock"			: 60,
+	"title"			: "Ford Mustang Boss",
+	"total"			: "99.00"
+}]

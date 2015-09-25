@@ -1,0 +1,99 @@
+<div class="container">
+	<div class="articles clearfix" id="cart">
+		<div ng-if="cart_items.length" class="item cart-item" ng-repeat="item in cart_items" data-item='{"category" : "{{ item.category }}", "descr" : "{{ item.descr }}", "id" : {{ item.id }}, "price" : "{{ item.price }}", "thumb" : "{{ item.images[0] }}", "title" : "{{ item.title }}" }'>
+			<button class="close remove-item" ng-click="removeItem($event, $index)" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+			</button>
+
+			<div class="item-wrap" id="{{ item.artikelId }}">
+				<div class="header">
+					<h2>
+						<a href="#/detail/{{ item.id }}">
+							{{ item.title }}
+						</a>
+					</h2>
+					<h3>{{ item.category }}</h3>
+				</div>
+
+				<div class="article-attributes" ng-if="item.attributes.length">
+					<span class="badge" ng-repeat="attribute in item.attributes">
+						<span ng-if="attribute.snippet" itemprop="{{ attribute.snippet }}">{{ attribute.name }}</span>
+						<span ng-if="!attribute.snippet">{{ attribute.name }}</span>
+					</span>
+				</div>
+
+				<div class="article-image">
+					<img ng-src="/assets/content/shop/images/250/{{ item.images[0] }}" />
+				</div>
+
+				<p compile-html="item.descr"></p>
+
+				<div class="article-action clearfix footer" data-id="{{ item.artikelId }}">
+					<div class="price">price: &euro; <em>{{ item.price }}</em></div>
+					<div ng-if="item.qty > 1">Total price: &euro; <em class="total">{{ item.total }}</em></div>
+
+					<span class="qty-block">
+						<span class="qty-fieldset">
+							Qty
+							<input class="inp-qty form-control" type="number" min="1" max="{{ item.stock }}" value="{{ item.qty }}" />
+						</span>
+						<a class="btn btn-primary update" href="#" ng-click="updateQty()">update</a>
+					</span>
+
+					<div class="btn-group clearfix">
+						<button class="btn btn-primary save-winkelitem" ng-click="saveForLater($index)">
+							<i class="glyphicon glyphicon-floppy-save"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div ng-if="!cart_items.length" class="alert alert-warning" role="alert">
+			Your cart is empty.
+		</div>
+	</div>
+
+	<div ng-if="cart_items.length" id="subTotaal">
+		Subtotal
+		<span id="subTotaalBedrag">{{ subTotal() }}</span>
+	</div>
+
+	<div ng-if="saved_items.length" class="articles clearfix" id="saved-for-later">
+			<strong class="head">Saved for later</strong>
+
+			<div ng-repeat="item in saved_items" class="item saved-for-later" data-item='{"category" : "{{ item.category }}", "descr" : "{{ item.descr }}", "id" : {{ item.id }}, "price" : "{{ item.price }}", "images" : ["{{ item.images[0] }}"], "qty" : 1, "stock": {{ item.stock }}, "title" : "{{ item.title }}" }'>
+				<button class="close remove-item" ng-click="removeSavedItem($event, $index)" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+
+				<div class="item-wrap">
+					<div class="header">
+						<h2>
+							<a href="#/detail/{{ item.id }}">
+								{{ item.title }}
+							</a>
+						</h2>
+						<h3>{{ item.category }}</h3>
+					</div>
+
+					<div class="smallImage">
+						<img ng-src="/assets/content/shop/images/250/{{ item.images[0] }}" />
+					</div>
+
+					<p itemprop="description" compile-html="item.descr">
+					</p>
+
+					<div class="article-action clearfix footer" data-id="{{ item.artikelId }}">
+						<span class="price">price: &euro; <em>{{ item.price }}</em></span>
+						<input class="inp-qty" type="hidden" value="1" />
+						<div class="btn-group cleafix">
+							<button class="btn btn-primary add-to-cart" title="cart" ng-click="moveToCart($index)">
+								<i class="glyphicon glyphicon-shopping-cart"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+	</div>
+</div>

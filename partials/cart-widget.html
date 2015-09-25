@@ -1,0 +1,65 @@
+<div ng-controller="CartWidgetCtrl">
+	<div ng-controller="DropdownController">
+		<div class="btn-group" dropdown>
+			<button id="split-button" type="button" class="btn btn-default">{{ widget_items.length }} items in cart</button>
+			<button type="button" class="btn btn-default" dropdown-toggle>
+				<span class="caret"></span>
+				<span class="sr-only">Toggle dropdown</span>
+			</button>
+			<ul class="dropdown-menu" aria-labelledby="split-button">
+				<li ng-if="widget_items.length" ng-repeat="item in widget_items" class="item">
+					<a class="clearfix" href="/#!/detail/{{ item.id }}">
+						<img class="hidden-xs" ng-src="/assets/content/shop/images/50/{{ item.images[0] }}" />
+						<span>
+							{{ item.category }}
+						</span>
+						<span>
+							{{ item.title }}
+						</span>
+						<span>
+							&euro; {{ item.price }}
+							x<em>{{ item.qty }}</em>
+						</span>
+					</a>
+					<button class="close remove-item" data-id="{{ item.id }}" ng-click="removeItem($event, $index)" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<span role="separator" class="divider"></span>
+				</li>
+				<li ng-if="!widget_items.length" class="msg-cart-empty">Your cart is empty.</li>
+				<li ng-if="widget_items.length" class="btn-view-cart">
+					<a class="btn" id="cart" ng-href="#!/cart">View cart</a>
+				</li>
+			</ul>
+			
+		</div>
+	</div>
+</div>
+
+	<!--div class="clearfix info">
+		<i class="glyphicon glyphicon-shopping-cart"></i>
+		<span class="cart-qty">{{ widget_items.length }}</span> items
+		<button class="toggle-list" el-toggler=".cart-widget-items"><i class="glyphicon glyphicon-list"></i></button>
+	</div>
+	<div class="cart-widget-items">
+		<ul>
+			<li ng-if="widget_items.length" ng-repeat="item in widget_items" class="clearfix item" data-item='{"id" : {{ item.id }}'>
+				<img ng-src="/assets/content/shop/images/50/{{ item.images[0] }}" />
+				<div>
+					{{ item.category }}
+					<a href="/#/detail/{{ item.id }}">{{ item.title }}</a>
+					<br />
+					<span>
+						&euro; {{ item.price }}
+						x<em>{{ item.stock }}</em>
+					</span>
+					<button class="remove-item" data-parent="li" ng-click="removeShoppingItem()">
+						<i class="glyphicon glyphicon-trash"></i>
+					</button>
+				</div>
+			</li>
+			<li ng-if="!widget_items.length" class="msg-cart-empty">Your cart is empty.</li>
+		</ul>
+		<a class="btn btn-primary btn-huge btn-view-cart hidden" id="cart" ng-href="#!/cart">View cart</a>
+	</div>
+</div-->

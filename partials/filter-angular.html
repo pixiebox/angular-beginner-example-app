@@ -1,0 +1,30 @@
+<div class="component search-container hasFilter">
+	<form class="search">
+		<button class="toggle" type="button" ng-click="filterCollapsed = !filterCollapsed">
+			<i class="glyphicon glyphicon-filter"></i>
+		</button>
+
+		<div class="sortby clearfix" collapse="filterCollapsed">
+			<div class="clearfix">
+				<fieldset class="clearfix col-md-6 col-lg-6 sorts">
+					<strong>Sorteren</strong>
+					<span ng-repeat="sort in sort_options">
+						<button class="order" ng-click="sortBy(sort.value)">{{ sort.label }}</button>
+					</span>
+				</fieldset>
+				<fieldset class="col-md-6 col-lg-6 filters">
+					<strong>Filteren</strong>
+					<span ng-repeat="filter in categories">
+						<input class="filterCategory" id="filterCategory{{ $index }}" name="filter" type="checkbox" value="{{ filter.value }}" ng-change="filterCategory()" ng-model="category" />
+						<label for="filterCategory{{ $index }}">
+						{{ filter.label }}
+						</label>
+					</span>
+				</fieldset>
+			</div>
+		</div>
+		<div class="searchbar">
+			<input type="search" value="" data-ng-model="searchquery.keyword" placeholder="search" />
+		</div>
+	</form>
+</div>

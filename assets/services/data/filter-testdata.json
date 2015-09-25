@@ -1,0 +1,22 @@
+{
+	"sort"				: [{
+										"value" : "manufacturer",
+										"label" : "manufacturer"
+									},
+									{
+										"value" : "year",
+										"label" : "year"
+									},
+									{
+										"value" : "brand",
+										"label" : "brand"
+									}],
+	"categories"	: [{
+										"value" : "Diecast",
+										"label" : "diecast"
+									},
+									{
+										"value" : "Handbuilt",
+										"label" : "handbuild"
+									}]
+}
